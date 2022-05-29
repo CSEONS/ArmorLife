@@ -16,9 +16,15 @@ public class SoldierController: KeyboradController
         {
             _soldire.Move(GetInpuAxisFloat());
         }
+
+
+
+        if (Input.GetKey(Keys.Kick))
+        {
+            _soldire.KickStart();
+        }
+
         
-
-
         _soldire.TurnToMouse();
     }
 }
