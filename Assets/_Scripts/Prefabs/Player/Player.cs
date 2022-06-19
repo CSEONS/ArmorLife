@@ -109,11 +109,13 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
 
     public void KickStart()
     {
+        if (state == States.Kick)
+            return;
         state = States.Kick;
         _animator.Play(nameof(Animations.Kick));
     }
 
-    public void Kick()
+    public void KickStay()
     {
         RaycastHit2D[] hit = Physics2D.CircleCastAll(_footPosition.position, _kickRadius, transform.up, _kickDistance, _layerMaskEnemy);
 
@@ -128,7 +130,7 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
         print("Kick cast end");
     }
 
-    public void KickEnd()
+    private void KickEnd()
     {
         state = States.Idle;
     }

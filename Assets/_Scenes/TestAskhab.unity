@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 666315828660536634, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
+      propertyPath: _maxSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 666315828660536634, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
+      propertyPath: _maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 820590325881421177, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.1200001
@@ -148,11 +156,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1099906240201026118, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5164
+      value: 0.5487783
       objectReference: {fileID: 0}
     - target: {fileID: 1099906240201026118, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0603
+      value: 0.0687
       objectReference: {fileID: 0}
     - target: {fileID: 1174337941405701300, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_LocalPosition.x
