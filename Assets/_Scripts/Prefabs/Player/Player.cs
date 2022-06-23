@@ -7,6 +7,7 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
     private float _maxHealth;
     public float Health {get; set;}
     public States state = States.Idle;
+    private int damage = 10;
 
     [SerializeField]
     private float _maxSpeed;
@@ -32,6 +33,7 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
         Walk,
         Run,
         Kick,
+        Punch
     }
 
     public enum Childs
@@ -79,24 +81,6 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
         _rb.MovePosition(_rb.position + direction * _maxSpeed * Time.deltaTime);
     }
 
-    public void Punch()
-    {
-        int nextPunch = Random.Range(0, 1);
-        
-        switch (nextPunch)
-        {
-            case 0: 
-                _animator.SetTrigger(nameof(Animations.Punch));
-                break;
-
-            case 1:
-                _animator.SetTrigger(nameof(Animations.PunchAlt));
-                break;
-
-            default:
-                break;
-        }
-    }
 
     public void TurnToMouse()
     {
@@ -106,16 +90,16 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
     }
 
     public abstract void UseAbility();
-
-    public void KickStart()
+    #region Kick
+    private void KickStart()
     {
         if (state == States.Kick)
             return;
         state = States.Kick;
         _animator.Play(nameof(Animations.Kick));
     }
-
-    public void KickStay()
+    
+    private void KickStay()
     {
         RaycastHit2D[] hit = Physics2D.CircleCastAll(_footPosition.position, _kickRadius, transform.up, _kickDistance, _layerMaskEnemy);
 
@@ -124,10 +108,8 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
             if (enemy.transform.TryGetComponent<IEnemy>(out IEnemy currentEnemy))
             {
                 currentEnemy.Stun();
-                print("Enemy kicked");
             }
         }
-        print("Kick cast end");
     }
 
     private void KickEnd()
@@ -135,8 +117,58 @@ public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
         state = States.Idle;
     }
 
-    private void KickCast()
+    public void KickCast()
     {
-        
+        KickStart();
     }
+    #endregion
+
+    #region Punch
+    public void Punch()
+    {
+        int nextPunch = Random.Range(0, 2);
+
+        switch (nextPunch)
+        {
+            case 0:
+                _animator.SetTrigger(nameof(Animations.Punch));
+                print("PunchRight");
+                break;
+
+            case 1:
+                _animator.SetTrigger(nameof(Animations.PunchAlt));
+                print("PunchLeft");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void PunchStart()
+    {
+        state = States.Punch;
+    }
+
+    private void PunchStay()
+    {
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(_footPosition.position, _kickRadius, transform.up, _kickDistance, _layerMaskEnemy);
+
+        foreach (var enemy in hit)
+        {
+            if (enemy.transform.TryGetComponent<IEnemy>(out IEnemy currentEnemy))
+            {
+                currentEnemy.ApplyDamage(damage);
+            }
+        }
+    }
+
+    private void PunchEnd()
+    {
+        state = States.Idle;
+
+        _animator.ResetTrigger(nameof(Animations.Punch));
+        _animator.ResetTrigger(nameof(Animations.PunchAlt));
+    }
+    #endregion
 }

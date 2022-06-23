@@ -17,11 +17,14 @@ public class SoldierController: KeyboradController
             _soldire.Move(GetInpuAxisFloat());
         }
 
-
+        if (Input.GetKeyDown(Keys.Atack) && _soldire.state != Player.States.Kick && _soldire.state != Player.States.Punch)
+        {
+            _soldire.Punch();
+        }
 
         if (Input.GetKey(Keys.Kick))
         {
-            _soldire.KickStart();
+            _soldire.KickCast();
         }
 
         

@@ -2,8 +2,6 @@
 
 public class Soldire : Player
 {
-    
-
     private void Start()
     {
         Init();
@@ -14,6 +12,4 @@ public class Soldire : Player
     {
         
     }
-
-    
 }
