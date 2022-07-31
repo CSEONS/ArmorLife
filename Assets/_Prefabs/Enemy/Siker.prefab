@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4844195206880139247}
   - component: {fileID: 4844195206880139251}
   - component: {fileID: 4510661445939489721}
+  - component: {fileID: 4696914267741885900}
   m_Layer: 0
   m_Name: Siker
   m_TagString: Untagged
@@ -190,6 +191,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
+--- !u!114 &4696914267741885900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961983838587387444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e996cff3cb23ce4a88b66f67924e53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scatterForce: 2
+  _torqueForce: 2
+  _linearDrag: 10
+  _angularDrag: 12
 --- !u!1 &1397177870514964193
 GameObject:
   m_ObjectHideFlags: 0
