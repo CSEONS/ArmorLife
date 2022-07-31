@@ -6,15 +6,24 @@ public class SlowWatter : MonoBehaviour
 {
     public float slowmo;
     private float currentSpeed;
+
+    private Dictionary<int, IDecelerable> _currentSlowObjects;
+
+    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        currentSpeed = collision.GetComponent<PlayerMover_1>().speed;
-        collision.GetComponent<PlayerMover_1>().speed /= slowmo;
-            
+        if (collision.TryGetComponent<IDecelerable>(out IDecelerable decelerating))
+        {
+            decelerating.Decelerate();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.GetComponent<PlayerMover_1>().speed = currentSpeed;
+        if (collision.TryGetComponent<IDecelerable>(out IDecelerable decelerating))
+        {
+            decelerating.RemoveDeceleration();
+        }
     }
 }

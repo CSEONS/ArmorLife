@@ -1,174 +1,83 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class Player : MonoBehaviour, IDamagable, IDecelerable
+[RequireComponent(typeof(Animator))]
+public class Player : MonoBehaviour, IPlayerStateSwicther
 {
-    [SerializeField]
-    private float _maxHealth;
-    public float Health {get; set;}
-    public States state = States.Idle;
-    private int damage = 10;
+    protected PlayerBaseState _currentState;
+    protected List<PlayerBaseState> _states;
 
-    [SerializeField]
-    private float _maxSpeed;
+    [SerializeField] protected float _MoveSpeed;
+    [SerializeField] protected float _SpreentMultiple;
+    [SerializeField] protected float _PunchAtackDistance;
+    [SerializeField] protected float _KickAtackDistance;
+    [SerializeField] protected float _Damage;
+    [SerializeField] protected float _StunningForce;
+    [SerializeField] protected float _KickForce;
 
-    protected Transform _footPosition;
-    protected Transform _leftHand;
-    protected Transform _rightHand;
+    [SerializeField] private Transform _atackOriginPoint;
 
-    protected Rigidbody2D _rb;
-    protected Animator _animator;
+    public Animator _Animator;
+    public Rigidbody2D RigidBody2D;
+    public bool Sprinted;
 
-    LayerMask _layerMaskEnemy;
+    private Vector2 _mooveDirection;
 
-    [SerializeField]
-    private float _kickRadius;
-    [SerializeField]
-    private float _kickDistance;
+    public float PunchAtackDistance => _PunchAtackDistance;
+    public float KickAtackDistance => _KickAtackDistance;
+    public float StunningForce => _StunningForce;
+    public float Damage => _Damage;
+    public float MoveSpeed => _MoveSpeed;
+    public float SpreentMultiple => _SpreentMultiple;
+    public float KickForce => _KickForce;
+    public Transform AtackOriginPoint => _atackOriginPoint;
+    public Vector2 MoveDirection => _mooveDirection;
 
-
-    public enum States
-    {
-        Idle,
-        Walk,
-        Run,
-        Kick,
-        Punch
-    }
-
-    public enum Childs
-    {
-        Foot
-    }
-
+    
     public enum Animations
     {
-        Idle,
-        Walk,
-        Run,
-        Kick,
         Punch,
-        PunchAlt
+        PunchAlt,
+        Kick,
+        Idle,
+        Run
     }
 
-    enum BodyParts
-    {
-        Foot,
-        LeftHand,
-        RightHand,
-    }
-
-    public void Init()
-    {
-        state = States.Idle;
-        _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-
-        _footPosition = transform.Find(nameof(BodyParts.Foot));
-        _leftHand = transform.Find(nameof(BodyParts.LeftHand));
-        _rightHand = transform.Find(nameof(BodyParts.RightHand));
-        _rb.gravityScale = 0;
-        Health = _maxHealth;
-    }
-
-    public void ApplyDamage(float damage)
-    {
-        Health -= damage;
-    }
 
     public void Move(Vector2 direction)
     {
-        _rb.MovePosition(_rb.position + direction * _maxSpeed * Time.deltaTime);
+        _mooveDirection = direction;
+        _currentState.Move(direction);
     }
 
-
-    public void TurnToMouse()
+    public void TurnToCamera()
     {
-        Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Vector2.Angle(Vector2.up, position - transform.position);
-        transform.eulerAngles = new Vector3(0f, 0f, transform.position.x < position.x ? -angle : angle);
+        _currentState.TurnToCamera();
     }
 
-    public abstract void UseAbility();
-    #region Kick
-    private void KickStart()
+    public void Kick()
     {
-        if (state == States.Kick)
-            return;
-        state = States.Kick;
-        _animator.Play(nameof(Animations.Kick));
+        _currentState.Kick(_atackOriginPoint);
     }
-    
-    private void KickStay()
+
+    public virtual void Punch()
     {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(_footPosition.position, _kickRadius, transform.up, _kickDistance, _layerMaskEnemy);
-
-        foreach (var enemy in hit)
-        {
-            if (enemy.transform.TryGetComponent<IEnemy>(out IEnemy currentEnemy))
-            {
-                currentEnemy.Stun();
-            }
-        }
+        _currentState.Punch(_atackOriginPoint);
     }
 
-    private void KickEnd()
+    public virtual void UseAbility()
     {
-        state = States.Idle;
+        _currentState.UseAbility();
     }
 
-    public void KickCast()
+    public void SwitchState<T>() where T : PlayerBaseState
     {
-        KickStart();
+        var switchedState = _states.FirstOrDefault(x => x is T);
+        _currentState.Exit();
+        switchedState.Enter();
+        _currentState = switchedState;
     }
-    #endregion
-
-    #region Punch
-    public void Punch()
-    {
-        int nextPunch = Random.Range(0, 2);
-
-        switch (nextPunch)
-        {
-            case 0:
-                _animator.SetTrigger(nameof(Animations.Punch));
-                print("PunchRight");
-                break;
-
-            case 1:
-                _animator.SetTrigger(nameof(Animations.PunchAlt));
-                print("PunchLeft");
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void PunchStart()
-    {
-        state = States.Punch;
-    }
-
-    private void PunchStay()
-    {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(_footPosition.position, _kickRadius, transform.up, _kickDistance, _layerMaskEnemy);
-
-        foreach (var enemy in hit)
-        {
-            if (enemy.transform.TryGetComponent<IEnemy>(out IEnemy currentEnemy))
-            {
-                currentEnemy.ApplyDamage(damage);
-            }
-        }
-    }
-
-    private void PunchEnd()
-    {
-        state = States.Idle;
-
-        _animator.ResetTrigger(nameof(Animations.Punch));
-        _animator.ResetTrigger(nameof(Animations.PunchAlt));
-    }
-    #endregion
 }
