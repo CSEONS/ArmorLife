@@ -1,5 +1,5 @@
 public interface IDecelerable
 {
-    void Decelerate();
-    void RemoveDeceleration();
+    public float DecelerateTime { get; set; }
+    void Decelerate(float DecelerateMultiple);
 }

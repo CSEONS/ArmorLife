@@ -9,38 +9,28 @@ public abstract class Enemy : MonoBehaviour, IEnemyStateSwitcher
 {
     public void Awake()
     {
-        _aiPath.endReachedDistance = AtackDistance;
+        _AIPath.endReachedDistance = AtackDistance;
     }
 
-    public float EndReachedDistance => _aiPath.endReachedDistance;
-
-    
-
-    public bool haveTarget => _currentFoundTarget != null;
+    public float EndReachedDistance => _AIPath.endReachedDistance;
+    public bool HaveTarget => _currentFoundTarget != null;
     public Transform GetCurrentTarget => _currentFoundTarget;
 
-    protected EnemyBaseState _currentState;
-    protected List<EnemyBaseState> _states;
+    protected EnemyBaseState _CurrentState;
+    protected List<EnemyBaseState> _States;
 
-    [SerializeField]
-    protected AIDestinationSetter _aiDestionationSetter;
-    [SerializeField]
-    protected AIPath _aiPath;
+    [SerializeField] protected AIDestinationSetter _AIDestionationSetter;
+    [SerializeField] protected AIPath _AIPath;
 
+    [SerializeField] public float DetectionZoneDistance;
+    [SerializeField] public float AtackDistance;
 
     private Transform _currentFoundTarget;
 
 
-    [SerializeField]
-    public float DetectionZoneDistance;
-    [SerializeField]
-    public float AtackDistance;
-
-    
-
     protected void SetStates(EnemyBaseState state)
     {
-        _currentState = state;
+        _CurrentState = state;
     }
 
     public void SetCurrenTarget(Transform target)
@@ -50,33 +40,28 @@ public abstract class Enemy : MonoBehaviour, IEnemyStateSwitcher
 
     public void SetAIPathDestinationSetterTarget(Transform target)
     {
-        _aiDestionationSetter.target = _currentFoundTarget;
+        _AIDestionationSetter.target = _currentFoundTarget;
     }
 
     public void SwitchEnemyState<T>() where T : EnemyBaseState
     {
-        var switchedState = _states.FirstOrDefault(a => a is T);
+        var switchedState = _States.FirstOrDefault(a => a is T);
 
         if (switchedState is null)
             throw new NotImplementedException($"Missing states in List \"_states\"");
 
-        _currentState.Exit();
+        _CurrentState.Exit();
         switchedState.Enter();
-        _currentState = switchedState;
+        _CurrentState = switchedState;
     }
 
     public void EnableAIPath(bool value)
     {
-        _aiPath.enabled = value;
-    }
-
-    public void ClearParent()
-    {
-        transform.parent = null;
+        _AIPath.enabled = value;
     }
 
     public void ClearTarget()
     {
-        _aiDestionationSetter.target = null;
+        _AIDestionationSetter.target = null;
     }
 }

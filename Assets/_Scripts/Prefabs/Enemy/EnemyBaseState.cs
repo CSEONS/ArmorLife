@@ -2,13 +2,13 @@
 
 public abstract class EnemyBaseState
 {
-    protected readonly Enemy _enemy;
-    protected readonly IEnemyStateSwitcher _stateSwitcher;
+    protected readonly Enemy _Enemy;
+    protected readonly IEnemyStateSwitcher _StateSwitcher;
 
     public EnemyBaseState(Enemy enemy, IEnemyStateSwitcher stateSwitcher)
     {
-        _enemy = enemy;
-        _stateSwitcher = stateSwitcher;
+        _Enemy = enemy;
+        _StateSwitcher = stateSwitcher;
     }
 
     public abstract void Enter();

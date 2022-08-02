@@ -7,8 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour, IPlayerStateSwicther
 {
-    protected PlayerBaseState _currentState;
-    protected List<PlayerBaseState> _states;
+    protected PlayerBaseState _CurrentState;
+    protected List<PlayerBaseState> _States;
+    //protected List<Effects> _Effects;
+
 
     [SerializeField] protected float _MoveSpeed;
     [SerializeField] protected float _SpreentMultiple;
@@ -17,6 +19,8 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
     [SerializeField] protected float _Damage;
     [SerializeField] protected float _StunningForce;
     [SerializeField] protected float _KickForce;
+
+    protected readonly float _BaseSpeed;
 
     [SerializeField] private Transform _atackOriginPoint;
 
@@ -50,34 +54,44 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
     public void Move(Vector2 direction)
     {
         _mooveDirection = direction;
-        _currentState.Move(direction);
+        _CurrentState.Move(direction);
     }
 
     public void TurnToCamera()
     {
-        _currentState.TurnToCamera();
+        _CurrentState.TurnToCamera();
     }
 
     public void Kick()
     {
-        _currentState.Kick(_atackOriginPoint);
+        _CurrentState.Kick(_atackOriginPoint);
     }
 
     public virtual void Punch()
     {
-        _currentState.Punch(_atackOriginPoint);
+        _CurrentState.Punch(_atackOriginPoint);
     }
 
     public virtual void UseAbility()
     {
-        _currentState.UseAbility();
+        _CurrentState.UseAbility();
+    }
+
+    public void ChangeSpeed(float value)
+    {
+        _MoveSpeed = value;
+    }
+
+    public void ResetSpeed()
+    {
+        _MoveSpeed = _BaseSpeed;
     }
 
     public void SwitchState<T>() where T : PlayerBaseState
     {
-        var switchedState = _states.FirstOrDefault(x => x is T);
-        _currentState.Exit();
+        var switchedState = _States.FirstOrDefault(x => x is T);
+        _CurrentState.Exit();
         switchedState.Enter();
-        _currentState = switchedState;
+        _CurrentState = switchedState;
     }
 }

@@ -12,8 +12,7 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log(this);
-        _enemy.SetAIPathDestinationSetterTarget(_enemy.GetCurrentTarget);
+        _Enemy.SetAIPathDestinationSetterTarget(_Enemy.GetCurrentTarget);
     }
 
     public override void Exit()
@@ -23,9 +22,9 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void Run()
     {
-        if(_enemy.EndReachedDistance >= (Vector3.Distance(_enemy.transform.position, _enemy.GetCurrentTarget.position)))
+        if(_Enemy.EndReachedDistance >= (Vector3.Distance(_Enemy.transform.position, _Enemy.GetCurrentTarget.position)))
         {
-            _enemy.SwitchEnemyState<EnemyClingToTargetState>();
+            _Enemy.SwitchEnemyState<EnemyClingToTargetState>();
         }
     }
 }

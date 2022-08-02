@@ -2,20 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Ruin))]
 public class Sicker : Enemy, IStunned, ICling
 {
     [SerializeField] private float _clingTimePerSecond;
     [SerializeField] private float _stunResist;
-    public float stunResist { get; set; }
-    public float stunDuration { get; set; }
-    public float stunValue { get; set; }
-    public float acceptedStun { get; set; }
+    [SerializeField] private float _stunTimePreSecond;
+    public float StunResist { get; set; }
+    public float StunDuration { get; set; }
+    public float StunValue { get; set; }
+    public float AcceptedStun { get; set; }
     public float ClingTimePerSecond { get; set; }
-    public bool isStuned { get; set; }
+    public bool IsStuned { get; set; }
 
     private void Start()
     {
-        _states = new List<EnemyBaseState>
+        _States = new List<EnemyBaseState>
         {
             new EnemyFindTargetState(this, this),
             new EnemyChaseState(this, this),
@@ -26,23 +28,24 @@ public class Sicker : Enemy, IStunned, ICling
         };
 
         ClingTimePerSecond = _clingTimePerSecond;
-        stunResist = _stunResist;
+        StunResist = _stunResist;
 
-        _currentState = _states.FirstOrDefault();
-        _currentState.Enter();
+        _CurrentState = _States.FirstOrDefault();
+        _CurrentState.Enter();
     }
 
     private void Update()
     {
-        _currentState.Run();
+        _CurrentState.Run();
     }
 
-    public void Stun(float value)
+    public void Stun()
     {
-        if (isStuned)
+        if (IsStuned)
             return;
 
-        stunValue += value;
+
+        StunValue = _stunTimePreSecond;
         SwitchEnemyState<EnemyBeforeStunState>();
     }
 }

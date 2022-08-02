@@ -56,7 +56,7 @@ public abstract class PlayerBaseState
         {
             if (kicked.TryGetComponent<IStunned>(out IStunned stunned))
             {
-                stunned.Stun(_Player.StunningForce);
+                stunned.Stun();
                 var kickedDirection = (Vector2)(kicked.transform.position - _Player.AtackOriginPoint.position);
                 Repulsion(kicked, kickedDirection * _Player.KickForce);
             }

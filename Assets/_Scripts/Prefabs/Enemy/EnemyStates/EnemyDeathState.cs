@@ -8,17 +8,16 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void Enter()
     {
-        _enemy.gameObject.SetActive(false);
-        Debug.LogWarning("Not implement!");
+        _Enemy.GetComponent<Ruin>().RuinChilds();
     }
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Run()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

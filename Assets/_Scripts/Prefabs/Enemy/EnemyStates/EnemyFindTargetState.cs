@@ -6,14 +6,14 @@ public class EnemyFindTargetState : EnemyBaseState
 
     private void FindTarget(Transform sicker)
     {
-        var allEntitysInDetectionZone = DetectAllInRadius(_enemy);
+        var allEntitysInDetectionZone = DetectAllInRadius(_Enemy);
 
         foreach (var entiy in allEntitysInDetectionZone)
         {
             if (entiy.TryGetComponent<Player>(out Player player))
             {
-                _enemy.SetCurrenTarget(player.transform);
-                _enemy.SwitchEnemyState<EnemyChaseState>();
+                _Enemy.SetCurrenTarget(player.transform);
+                _Enemy.SwitchEnemyState<EnemyChaseState>();
                 return;
             }
         }
@@ -21,13 +21,13 @@ public class EnemyFindTargetState : EnemyBaseState
 
     private Collider2D[] DetectAllInRadius(Enemy enemy)
     {
-        var allInRadius = Physics2D.OverlapCircleAll(_enemy.transform.position, _enemy.DetectionZoneDistance);
+        var allInRadius = Physics2D.OverlapCircleAll(_Enemy.transform.position, _Enemy.DetectionZoneDistance);
         return allInRadius;
     }
 
     public override void Run()
     {
-        FindTarget(_enemy.transform);
+        FindTarget(_Enemy.transform);
     }
 
     public override void Enter()

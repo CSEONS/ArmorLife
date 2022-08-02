@@ -10,14 +10,6 @@ public class Ruin : MonoBehaviour
     [SerializeField] private float _linearDrag;
     [SerializeField] private float _angularDrag;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            RuinChilds();
-        }
-    }
-
     public void RuinChilds()
     {
         var allChilds = GetAllChilds();

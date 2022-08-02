@@ -79,6 +79,7 @@ MonoBehaviour:
   AtackDistance: 0.5
   _clingTimePerSecond: 5
   _stunResist: 1
+  _stunTimePreSecond: 2
 --- !u!114 &3317528925706986579
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnemyClingToTargetState : EnemyBaseState
 {
-    private Collider2D[] _allColider;
     private ICling _cling;
     public EnemyClingToTargetState(Enemy enemy, IEnemyStateSwitcher stateSwitcher, ICling cling) : base(enemy, stateSwitcher)
     {
@@ -14,17 +13,16 @@ public class EnemyClingToTargetState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log(this);
-        _enemy.transform.SetParent(_enemy.GetCurrentTarget);
-        _enemy.ClearTarget();
-        _enemy.EnableAIPath(false);
+        _Enemy.transform.SetParent(_Enemy.GetCurrentTarget);
+        _Enemy.ClearTarget();
+        _Enemy.EnableAIPath(false);
     }
 
     
 
     public override void Exit()
     {
-        _enemy.EnableAIPath(true);
+        _Enemy.EnableAIPath(true);
         ClearParrent();
     }
 
@@ -32,7 +30,7 @@ public class EnemyClingToTargetState : EnemyBaseState
     {
         if (_cling.ClingTimePerSecond <= 0)
         {
-            _enemy.SwitchEnemyState<EnemyDeathState>();
+            _Enemy.SwitchEnemyState<EnemyDeathState>();
         }
 
         _cling.ClingTimePerSecond -= Time.deltaTime;
@@ -40,6 +38,6 @@ public class EnemyClingToTargetState : EnemyBaseState
 
     private void ClearParrent()
     {
-        _enemy.transform.parent = null;
+        _Enemy.transform.parent = null;
     }
 }

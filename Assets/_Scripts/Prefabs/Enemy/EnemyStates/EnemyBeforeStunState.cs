@@ -11,7 +11,7 @@ public class EnemyBeforeStunState : EnemyBaseState
 
     public override void Enter()
     {
-        
+        _Enemy.ClearTarget();
     }
 
     public override void Exit()
@@ -21,13 +21,13 @@ public class EnemyBeforeStunState : EnemyBaseState
 
     public override void Run()
     {
-        if (_stunned.stunValue > _stunned.stunResist)
+        if (_stunned.StunValue > _stunned.StunResist)
         {
-            _stunned.isStuned = true;
-            _enemy.SwitchEnemyState<EnemyStunState>();
+            _stunned.IsStuned = true;
+            _Enemy.SwitchEnemyState<EnemyStunState>();
             return;
         }
 
-        _enemy.SwitchEnemyState<EnemyFindTargetState>();
+        _Enemy.SwitchEnemyState<EnemyFindTargetState>();
     }
 }

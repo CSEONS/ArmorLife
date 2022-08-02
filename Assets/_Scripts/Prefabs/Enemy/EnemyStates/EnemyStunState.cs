@@ -10,8 +10,8 @@ public class EnemyStunState : EnemyBaseState
 
     public override void Enter()
     {
-        _enemy.ClearTarget();
-        _enemy.ClearParent();
+        _Enemy.ClearTarget();
+        ClearParent(_Enemy.transform);
     }
 
     public override void Exit()
@@ -21,12 +21,17 @@ public class EnemyStunState : EnemyBaseState
 
     public override void Run()
     {
-        if (_stunned.stunValue > 0)
+        if (_stunned.StunValue > 0)
         {
-            _stunned.stunValue -= Time.deltaTime;
+            _stunned.StunValue -= Time.deltaTime;
             return;
         }
 
-        _enemy.SwitchEnemyState<EnemyDeathState>();
+        _Enemy.SwitchEnemyState<EnemyDeathState>();
+    }
+
+    public void ClearParent(Transform entity)
+    {
+        entity.transform.parent = null;
     }
 }

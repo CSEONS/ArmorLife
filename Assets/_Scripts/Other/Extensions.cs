@@ -11,8 +11,6 @@ public static class Extensions
                                 Random.Range((float)-maxScatterDirection.y, maxScatterDirection.y)
                             );
 
-        Debug.Log(v);
-
         return v;
     }
 }

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class DoorMove : MonoBehaviour
 {
-    public Transform door;
-    private Vector3 startPos;
-    public Vector3 offset;
-    public float step;
+    public Transform Door;
+    private Vector3 _startPos;
+    public Vector3 Offset;
+    public float Step;
 
     private void Start()
     {
-        startPos = door.position;
+        _startPos = Door.position;
     }
 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
 
-        door.position = Vector3.Lerp(startPos, startPos + offset, step) * Time.deltaTime;
+        Door.position = Vector3.Lerp(_startPos, _startPos + Offset, Step) * Time.deltaTime;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -5,12 +5,11 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
-    public float step = 0.9f;
-
-    public Transform target;
+    public float Step = 0.9f;
+    public Transform Target;
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position + Vector3.back * 10, step);
+        transform.position = Vector3.Lerp(transform.position, Target.position + Vector3.back * 10, Step);
     }
 }
