@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
 {
     protected PlayerBaseState _CurrentState;
     protected List<PlayerBaseState> _States;
-    //protected List<Effects> _Effects;
+    protected List<Effect> _Effects;
 
 
     [SerializeField] protected float _MoveSpeed;
@@ -40,7 +40,6 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
     public Transform AtackOriginPoint => _atackOriginPoint;
     public Vector2 MoveDirection => _mooveDirection;
 
-    
     public enum Animations
     {
         Punch,
@@ -93,5 +92,21 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
         _CurrentState.Exit();
         switchedState.Enter();
         _CurrentState = switchedState;
+    }
+
+    private void ApplyAllEffects()
+    {
+        if (_Effects.Count == 0)
+            return;
+
+        foreach (var effect in _Effects)
+        {
+            effect.Apply();
+        }
+    }
+
+    private void Update()
+    {
+        ApplyAllEffects();
     }
 }

@@ -153,37 +153,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1628899026, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.019
-      objectReference: {fileID: 0}
-    - target: {fileID: 1628899026, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.331
-      objectReference: {fileID: 0}
-    - target: {fileID: 1715230370, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: _KickForce
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1715230370, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: _StunningForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1715230370, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: _KickAtackDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1715230370, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: _PunchAtackDistance
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1840136249230298747, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_Name
       value: Soldire
-      objectReference: {fileID: 0}
-    - target: {fileID: 1840136249230298747, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9097251150607987213, guid: c334875a989810e4d9b8a04d7677ec44, type: 3}
       propertyPath: m_RootOrder
@@ -2087,8 +2059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95222fba0a3188f42a73fff40fe6eda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: 0.9
-  target: {fileID: 844024565}
+  Step: 0.9
+  Target: {fileID: 844024565}
 --- !u!1 &1809833238
 GameObject:
   m_ObjectHideFlags: 0

@@ -73,8 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec1836ec46e7cf4ca7e4acd1e63d8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aiDestionationSetter: {fileID: 4844195206880139247}
-  _aiPath: {fileID: 4844195206880139245}
+  _AIDestionationSetter: {fileID: 4844195206880139247}
+  _AIPath: {fileID: 4844195206880139245}
   DetectionZoneDistance: 3
   AtackDistance: 0.5
   _clingTimePerSecond: 5
