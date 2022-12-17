@@ -4,48 +4,27 @@ public abstract class PlayerBaseState
 {
     protected Player _Player;
     protected Animator _Animator;
+    protected Weapon _Weapon;
+    protected Rigidbody2D _Rigidbody2D;
+    protected PlayerAnimations _PlayerAnimations;
 
-    public PlayerBaseState(Player player, Animator animator)
+    public PlayerBaseState(Player player, Animator animator, Weapon weapon, Rigidbody2D rigidbody, PlayerAnimations playerAnimations)
     {
         _Player = player;
         _Animator = animator;
+        _Weapon = weapon;
+        _Rigidbody2D = rigidbody;
+        _PlayerAnimations = playerAnimations;
+    }
+
+    public virtual void Atack()
+    {
+        _Weapon.Atack();
     }
 
     public virtual void Move(Vector2 direction)
     {
-        _Player.RigidBody2D.MovePosition(_Player.RigidBody2D.position + direction * _Player.MoveSpeed * Time.deltaTime);
-    }
-
-    public virtual void TurnToCamera()
-    {
-        Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Vector2.Angle(Vector2.up, position - _Player.transform.position);
-        _Player.transform.eulerAngles = new Vector3(0f, 0f, _Player.transform.position.x < position.x ? -angle : angle);
-    }
-
-    public virtual void Punch(Transform atackOriginPoint)
-    {
-        var allInAffectedArea = Physics2D.OverlapCircleAll(atackOriginPoint.position, _Player.PunchAtackDistance);
-
-        var atackAlt = Random.Range(0, 2) > 0 ? true : false;
-
-        if (atackAlt)
-        {
-            _Player._Animator.Play(nameof(Player.Animations.PunchAlt));
-        }
-        else
-        {
-            _Player._Animator.Play(nameof(Player.Animations.Punch));
-        }
-
-
-        foreach(var entity in allInAffectedArea)
-        {
-            if (entity.TryGetComponent<IDamagable>(out IDamagable damaged))
-            {
-                damaged.ApplyDamage(_Player.Damage);
-            }
-        }
+        _Rigidbody2D.MovePosition(_Rigidbody2D.position + direction * _Player.Stats.Speed * Time.deltaTime);
     }
 
     public void Kick(Transform _atackOriginPoint)
@@ -62,7 +41,8 @@ public abstract class PlayerBaseState
             }
         }
 
-        _Animator.Play(nameof(Player.Animations.Kick));
+        _Animator.Play(_PlayerAnimations.Kick.name);
+        _Player.SwitchState<PlayerKickState>();
     }
 
     public virtual void UseAbility()

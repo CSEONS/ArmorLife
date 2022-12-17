@@ -2,7 +2,7 @@
 
 public class PlayerIdleState : PlayerBaseState
 {
-    public PlayerIdleState(Player player, Animator animator) : base(player, animator)
+    public PlayerIdleState(Player player, Animator animator, Weapon weapon, Rigidbody2D rigidbody, PlayerAnimations playerAnimations) : base(player, animator, weapon, rigidbody, playerAnimations)
     {
     }
 

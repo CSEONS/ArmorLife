@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,40 +6,31 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerBodyPartsSpriteRendererContainer))]
 public class Player : MonoBehaviour, IPlayerStateSwicther
 {
-    protected PlayerBaseState _CurrentState;
-    protected List<PlayerBaseState> _States;
-    protected List<Effect> _Effects;
+    public float KickAtackDistance => _kickAtackDistance;
+    public float KickForce => _kickForce;
+    public Transform AtackOriginPoint => _foot;
+    public Type CurrentState => _currentState.GetType();
 
+    [HideInInspector] public bool Sprinted;
 
-    [SerializeField] protected float _MoveSpeed;
-    [SerializeField] protected float _SpreentMultiple;
-    [SerializeField] protected float _PunchAtackDistance;
-    [SerializeField] protected float _KickAtackDistance;
-    [SerializeField] protected float _Damage;
-    [SerializeField] protected float _StunningForce;
-    [SerializeField] protected float _KickForce;
+    public Stats Stats;
 
-    protected readonly float _BaseSpeed;
+    [SerializeField] private float _kickAtackDistance;
+    [SerializeField] private float _kickForce;
+    [SerializeField] private Transform _foot;
+    [SerializeField] private Skin _skin;
+    [SerializeField] private List<Weapon> _weapons;
 
-    [SerializeField] private Transform _atackOriginPoint;
-
-    public Animator _Animator;
-    public Rigidbody2D RigidBody2D;
-    public bool Sprinted;
-
-    private Vector2 _mooveDirection;
-
-    public float PunchAtackDistance => _PunchAtackDistance;
-    public float KickAtackDistance => _KickAtackDistance;
-    public float StunningForce => _StunningForce;
-    public float Damage => _Damage;
-    public float MoveSpeed => _MoveSpeed;
-    public float SpreentMultiple => _SpreentMultiple;
-    public float KickForce => _KickForce;
-    public Transform AtackOriginPoint => _atackOriginPoint;
-    public Vector2 MoveDirection => _mooveDirection;
+    private PlayerBaseState _currentState;
+    private List<PlayerBaseState> _States;
+    private PlayerBodyPartsSpriteRendererContainer _bodySpriteRendererContainer;
+    private Animator _animator;
+    private Rigidbody2D _rigidbody2D;
+    private PlayerAnimations _playerAnimations;
+    private Weapon _currentWeapon;
 
     public enum Animations
     {
@@ -49,64 +41,69 @@ public class Player : MonoBehaviour, IPlayerStateSwicther
         Run
     }
 
+    private void Start()
+    {
+        _bodySpriteRendererContainer = GetComponent<PlayerBodyPartsSpriteRendererContainer>();
+        _playerAnimations = GetComponent<PlayerAnimations>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+
+        _bodySpriteRendererContainer.Change(_skin);
+
+
+        _States = new List<PlayerBaseState>
+        {
+            new PlayerIdleState(this, _animator, _currentWeapon, _rigidbody2D, _playerAnimations),
+            new PlayerWalkState(this, _animator, _currentWeapon, _rigidbody2D, _playerAnimations),
+            new PlayerRunState(this, _animator, _currentWeapon, _rigidbody2D, _playerAnimations),
+            new PlayerKickState(this, _animator, _currentWeapon, _rigidbody2D, _playerAnimations)
+            
+        };
+
+        _currentState = _States.FirstOrDefault();
+        _currentState.Enter();
+        //_currentWeapon = _weapons.First();
+    }
+
+    private void Update()
+    {
+        Debug.Log(_currentState);
+    }
+
+    public void Atack()
+    {
+        _currentState.Atack();
+    }
 
     public void Move(Vector2 direction)
     {
-        _mooveDirection = direction;
-        _CurrentState.Move(direction);
-    }
-
-    public void TurnToCamera()
-    {
-        _CurrentState.TurnToCamera();
+        _currentState.Move(direction);
     }
 
     public void Kick()
     {
-        _CurrentState.Kick(_atackOriginPoint);
-    }
-
-    public virtual void Punch()
-    {
-        _CurrentState.Punch(_atackOriginPoint);
+        _currentState.Kick(AtackOriginPoint);
     }
 
     public virtual void UseAbility()
     {
-        _CurrentState.UseAbility();
-    }
-
-    public void ChangeSpeed(float value)
-    {
-        _MoveSpeed = value;
-    }
-
-    public void ResetSpeed()
-    {
-        _MoveSpeed = _BaseSpeed;
+        _currentState.UseAbility();
     }
 
     public void SwitchState<T>() where T : PlayerBaseState
     {
         var switchedState = _States.FirstOrDefault(x => x is T);
-        _CurrentState.Exit();
+
+        if (switchedState is null)
+            throw new NotImplementedException($"The instance {nameof(T)} is missing. in {nameof(_States)}");
+
+        _currentState.Exit();
         switchedState.Enter();
-        _CurrentState = switchedState;
+        _currentState = switchedState;
     }
 
-    private void ApplyAllEffects()
+    public void ChangeSkin()
     {
-        if (_Effects.Count == 0)
-            return;
 
-        foreach (var effect in _Effects)
-        {
-            effect.Apply();
-        }
-    }
-
-    private void Update()
-    {
-        ApplyAllEffects();
     }
 }

@@ -243,7 +243,7 @@ TextureImporter:
       213: -6505821951312538155
     second: Laboratory_79
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -264,6 +264,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -302,6 +303,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -317,6 +319,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2020,6 +2046,87 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Laboratory_26: -5535534148420129070
+      Laboratory_75: 2364653086254763464
+      Laboratory_68: 3486577773771873966
+      Laboratory_73: -2212478274682443556
+      Laboratory_9: 5794580005290638460
+      Laboratory_27: 4419896682028838861
+      Laboratory_30: -5242626449374526545
+      Laboratory_17: 4817263413650714912
+      Laboratory_3: 8913878942582004057
+      Laboratory_11: 7937143097600228531
+      Laboratory_46: -6143998757351639204
+      Laboratory_40: -6579233773669638472
+      Laboratory_22: 5118455647384023159
+      Laboratory_76: -813676731787842894
+      Laboratory_49: -4784372679772366127
+      Laboratory_59: 364848666665009295
+      Laboratory_62: 1963754461787662781
+      Laboratory_2: 6288511564590339498
+      Laboratory_12: -7204402171762983054
+      Laboratory_69: -1324882101703355342
+      Laboratory_13: -899600578771066329
+      Laboratory_18: 6412495885222566033
+      Laboratory_6: 8614065384140420690
+      Laboratory_24: 875151375612316751
+      Laboratory_23: 4340370174691301113
+      Laboratory_35: 3906858878558601600
+      Laboratory_58: -8067627858577527500
+      Laboratory_25: 5513245252746876533
+      Laboratory_37: -2445875437094779873
+      Laboratory_54: 1829102849197528689
+      Laboratory_72: -7869728351082482303
+      Laboratory_66: -609341120206147842
+      Laboratory_56: 1311774168957730547
+      Laboratory_52: 732800560184217052
+      Laboratory_64: -7604409075484010842
+      Laboratory_16: 5511358018018480210
+      Laboratory_15: 2428783430218209197
+      Laboratory_57: 4274073384176966908
+      Laboratory_43: 8132511590424148067
+      Laboratory_44: -4903354670688359214
+      Laboratory_45: -5926857151713130107
+      Laboratory_51: -4420984517735026817
+      Laboratory_61: 5236015818916705773
+      Laboratory_65: 4762768663581387457
+      Laboratory_71: 8146936861455515873
+      Laboratory_78: -3643153977800987076
+      Laboratory_8: -7165203259037509801
+      Laboratory_39: 3173886863272328279
+      Laboratory_14: 6300945836765097089
+      Laboratory_48: -2133050043649209682
+      Laboratory_74: -7283634204885092414
+      Laboratory_77: -7570272280063774652
+      Laboratory_42: 988150715679349761
+      Laboratory_70: -6874445738263319624
+      Laboratory_53: -7738761165463715110
+      Laboratory_10: 2990548646007337621
+      Laboratory_55: -8899957226582938838
+      Laboratory_1: 4559192685798533030
+      Laboratory_63: 8987744810603911870
+      Laboratory_29: -4975569071005143809
+      Laboratory_19: -6477238328187843740
+      Laboratory_41: -4184140581702858748
+      Laboratory_0: -7870918080361938709
+      Laboratory_33: -8018411571685671162
+      Laboratory_50: -9131784806948281114
+      Laboratory_28: -8067422700773942250
+      Laboratory_36: -8646021464234436928
+      Laboratory_34: -7960556468780093189
+      Laboratory_20: 4070458534345742749
+      Laboratory_32: 8082366305948152433
+      Laboratory_5: -8092079271349261737
+      Laboratory_21: 3502744453384054541
+      Laboratory_79: -6505821951312538155
+      Laboratory_7: 20948583564447716
+      Laboratory_60: -482767847650000464
+      Laboratory_31: 3566709867990653646
+      Laboratory_4: 8648955701526019084
+      Laboratory_47: -8973237492794087935
+      Laboratory_67: 1629503284747279210
+      Laboratory_38: -1019416217233329224
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1

@@ -2,7 +2,7 @@
 
 public class PlayerRunState : PlayerBaseState
 {
-    public PlayerRunState(Player player, Animator animator) : base(player, animator)
+    public PlayerRunState(Player player, Animator animator, Weapon weapon, Rigidbody2D rigidbody2D, PlayerAnimations playerAnimations) : base(player, animator, weapon, rigidbody2D, playerAnimations)
     {
     }
 
@@ -10,7 +10,7 @@ public class PlayerRunState : PlayerBaseState
     {
         if (_Player.Sprinted)
         {
-            base.Move(direction.normalized * _Player.SpreentMultiple);
+            base.Move(direction.normalized * _Player.Stats.SpreentMultiple);
         }
         else
         {

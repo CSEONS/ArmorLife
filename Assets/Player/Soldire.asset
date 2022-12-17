@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e9b49034f684645bfd345214bce040, type: 3}
+  m_Name: Soldire
+  m_EditorClassIdentifier: 
+  Head: {fileID: 21300000, guid: fd8655eb1eb31cb4a8ffa3120b4e2b8e, type: 2}
+  Body: {fileID: 21300000, guid: be5e27f108ef8a7489e550eff69cb684, type: 2}
+  Shoulder_left: {fileID: 21300000, guid: e1594e9d923f3d34fa79f96c64c1ba85, type: 2}
+  Shoulder_right: {fileID: 21300000, guid: 9017494d9717ecd4e8ac6f34c7f2326d, type: 2}
+  Forearm_left: {fileID: 21300000, guid: a3f7e7736b13029488b0ad940e71112a, type: 2}
+  Forearm_right: {fileID: 21300000, guid: 39a79aa0b8ad8f24baebff1aa326076c, type: 2}
+  Wrist_left: {fileID: 21300000, guid: 34b63ad0741d76a41a29f7b7ccfd46b1, type: 2}
+  Wrist_right: {fileID: 21300000, guid: 2278f52423d56dc4c960ddf95a7be5ee, type: 2}
+  Foot: {fileID: 21300000, guid: a5e76289a16b1b04299f0d35289c4136, type: 2}

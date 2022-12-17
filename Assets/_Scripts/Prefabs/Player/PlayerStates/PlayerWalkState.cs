@@ -2,7 +2,7 @@
 
 public class PlayerWalkState : PlayerBaseState
 {
-    public PlayerWalkState(Player player, Animator animator) : base(player, animator)
+    public PlayerWalkState(Player player, Animator animator, Weapon weapon, Rigidbody2D rigidbody2D, PlayerAnimations playerAnimations) : base(player, animator, weapon, rigidbody2D, playerAnimations)
     {
     }
 
